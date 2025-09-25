@@ -22,14 +22,14 @@
         #title {text-align: center;
             font-size: 40px; font-weight: 700;
             font-family: "Comic Sans MS";
-            margin-bottom: 20px; background-color: #ffb700; width: 400px;
+            margin-bottom: 10px; background-color: #ffb700; width: 400px;
             border-radius: 12px; color: #5A3B18; border: 1px solid #5A3B18}
 
         #control {z-index: 0; position: relative; background-color: #ffb700;
             border-radius: 12px; border: 1px solid #5A3B18; opacity:1; transition: opacity 1.5s ease-in-out;
             width: 421px; height: 421px; display: grid; grid-template-columns: auto auto auto auto; padding: 12px; column-gap: 7px; row-gap: 7px}
     #game_over {display: grid; transition: opacity 0.5s ease-in-out; opacity:0; font-family: "Comic Sans MS"; background-color:#ffb700;
-        width: 400px; text-align: center; margin-top: 70px;
+        width: 400px; text-align: center; margin-top: 110px;
         border-radius: 7px;  position: absolute;align-self: center;
              font-size: 55px; color: #5A3B18; z-index: 1}
             #play_again {border: 1px solid #5A3B18; color: #5A3B18;
@@ -37,6 +37,8 @@
                 text-align: center; place-content: center; display:grid; margin: 7px;
                 font-size: 20px;justify-self: center }
             #right {justify-self: center}
+               #value {background-color: white; display: flex; place-content: center; margin-left: 4px; margin-right:4px;color: #5A3B18; border: 1px solid #5A3B18; border-radius: 12px; width: 25%}
+         #counter {border: 1px solid #5A3B18; margin-bottom: 10px; display: flex; place-content: center; background-color:  #ffb700; font-size: 24px; color: #5A3B18; border-radius: 12px; padding: 7px; width: 60% }
 
     </style>
             <link rel = "stylesheet" type = "text/css" href = "share.css">
@@ -47,6 +49,8 @@
   <div id = "parent_container">
         <div id = "content">
     <div id = "title">2048 FRUITS</div>
+            <div id = "counter">You Ate <div id = "value"></div> Fruits </div>
+
        <div id = "game_over"> GAME OVER
 
         <div id = "play_again"> Play Again</div>
