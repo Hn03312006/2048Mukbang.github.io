@@ -74,6 +74,7 @@ function RandomTile(board) {
             appear_of_game_over_board("lose")
         }
     }
+    return random
 }
 
 
@@ -131,6 +132,9 @@ function merge(board, direction) {
             if (board[row][x][0] === 2048) {
                 win_or_not = "yes"
             }
+            if (board[row][x][0] > document.getElementById("value").innerHTML) {
+                document.getElementById("value").innerHTML = board[row][x][0]
+            }
             if( direction === "left" || direction === "up") {
                 x ++
                 y++
@@ -187,58 +191,58 @@ function HorToVer(real_board) {
 
 function main(board) {
     document.addEventListener('keyup', (event) => {
-        let direction
-        let old_board = [...board]
-        if (isMoving) {
-            return;
-        }
-        let copy_to_compare = []
-        for (let element of board) {
-            for (let item of element){
-                copy_to_compare.push(item[0])
+        if (event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp" || event.key === "ArrowRight") {
+            let direction
+            let old_board = [...board]
+            if (isMoving) {
+                return;
             }
-        }
-        if (event.key === 'ArrowLeft') {
-            direction = "left"
-        }
-        else if (event.key === "ArrowRight") {
-            direction = "right"
-        }
-        else if (event.key === "ArrowUp") {
-            direction = "up"
-            board = HorToVer(board)
-        }
-        else if (event.key === "ArrowDown") {
-            direction = "down"
-            board = HorToVer(board)
-        }
-        RemoveSpace(board, direction);
-        let merging_movement = merge(board, direction);
-        let merging_disappear = merging_movement[0]
-        let merging_to = merging_movement[1]
-        RemoveSpace(board, direction);
-        if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-            board = HorToVer(board)
-        }
-        let translate_obj = (Translating_Distance_Cal(old_board, board,  merging_disappear, merging_to ))
-        moveNormalTile(translate_obj[0])
-        moveMergingTile(translate_obj[1])
+            let copy_to_compare = []
+            for (let element of board) {
+                for (let item of element) {
+                    copy_to_compare.push(item[0])
+                }
+            }
+            if (event.key === 'ArrowLeft') {
+                direction = "left"
+            } else if (event.key === "ArrowRight") {
+                direction = "right"
+            } else if (event.key === "ArrowUp") {
+                direction = "up"
+                board = HorToVer(board)
+            } else if (event.key === "ArrowDown") {
+                direction = "down"
+                board = HorToVer(board)
+            }
+            RemoveSpace(board, direction);
+            let merging_movement = merge(board, direction);
+            let merging_disappear = merging_movement[0]
+            let merging_to = merging_movement[1]
+            RemoveSpace(board, direction);
+            if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+                board = HorToVer(board)
+            }
+            let translate_obj = (Translating_Distance_Cal(old_board, board, merging_disappear, merging_to))
+            moveNormalTile(translate_obj[0])
+            moveMergingTile(translate_obj[1])
 
-        let copy_to_compare1 = []
-        for (let element of board) {
-            for (let item of element){
-                copy_to_compare1.push(item[0])
+            let copy_to_compare1 = []
+            for (let element of board) {
+                for (let item of element) {
+                    copy_to_compare1.push(item[0])
+                }
             }
-        }
-        if (copy_to_compare.toString() !== copy_to_compare1.toString() ){
-            isMoving = true
-            RandomTile(board)
+            if (copy_to_compare.toString() !== copy_to_compare1.toString()) {
+                isMoving = true
+                RandomTile(board)
+            }
         }
     });
 }
 
 function final_run(board) {
-    RandomTile(board);
+    document.getElementById("value").innerHTML = String(RandomTile(board));
+
     main(board);
 }
 
