@@ -10,27 +10,29 @@ let five12 = '512.JPG"'
 let ten24 = '1024.JPG"'
 let twenty48 = '2048.JPG"'
 let option = '"' + document.getElementById("title").innerHTML.split(" ")[1].toLowerCase() + '/'
-console.log(option)
 let img_src = 'img src=' + option
-let collection_of_image = {"2": `<${img_src + two }>` , "4": `<${img_src + four }>`,
-                                 "8": `<${img_src + eight  }>`,"16": `<${img_src + sixteen  }>`,"32": `<${img_src + thirtytwo }>`,"64": `<${img_src + sixtyfour  }>`,
-                                 "128": `<${img_src + one28 }>`, "256": `<${img_src + two25 }>`, "512": `<${img_src + five12}>`, "1024": `<${img_src + ten24  }>`,
-                                 "2048": `<${img_src + twenty48 }>`,}
-
+let collection_of_image = {
+    "2": `<${img_src + two }>`,
+    "4": `<${img_src + four }>`,
+    "8": `<${img_src + eight  }>`,
+    "16": `<${img_src + sixteen  }>`,
+    "32": `<${img_src + thirtytwo }>`,
+    "64": `<${img_src + sixtyfour  }>`,
+    "128": `<${img_src + one28 }>`,
+    "256": `<${img_src + two25 }>`,
+    "512": `<${img_src + five12}>`,
+    "1024": `<${img_src + ten24  }>`,
+    "2048": `<${img_src + twenty48 }>`,
+}
 let tile_count = 0
-
-
 let isMoving = false
-
 
 
 function RandomTileAnimation(random, random_tile, id) {
     tile_count ++
     let apply_transform = document.createElement("div")
     let newTile = document.createElement("div");
-
     newTile.innerHTML = collection_of_image[String(random)]
-    console.log(newTile.innerHTML)
     newTile.dataset.value = String(random)
     newTile.classList.add("new_tile")
     apply_transform.classList.add(String(id), "moving")
@@ -41,7 +43,6 @@ function RandomTileAnimation(random, random_tile, id) {
     document.getElementById("control").appendChild(apply_transform);
     newTile.addEventListener("animationend", () => {
         tile_count--
-        console.log(tile_count)
         if (tile_count === 0) {
             isMoving = false
         }
@@ -50,16 +51,15 @@ function RandomTileAnimation(random, random_tile, id) {
     newTile.classList.remove("new_tile")
 }
 
+
 function moveNormalTile(normal_move) {
    for (let key in normal_move) {
        if (!(Number.isNaN(normal_move[String(key)]))) {
            let tile = document.getElementsByClassName(key)[0]
            tile.style.transform = `translate(${normal_move[key][1] * 107}px, ${normal_move[key][0] * 107}px)`;
            tile_count++
-           console.log(tile_count)
            tile.addEventListener("transitionend", () => {
                tile_count--
-               console.log(tile_count)
                if (tile_count === 0) {
                    isMoving = false
                }
@@ -79,7 +79,6 @@ function moveMergingTile(merging_move) {
            tile.style.transform = `translate(${merging_move[key][1][1] * 107}px, ${merging_move[key][1][0] * 107}px)`;
            tile.addEventListener("transitionend", () => {
                tile_count--
-               console.log(tile_count)
                if (tile_count === 0) {
                    isMoving = false
                }
@@ -87,11 +86,9 @@ function moveMergingTile(merging_move) {
                double_value_tile = document.getElementsByClassName(String(merging_move[key][0]))[0].firstElementChild
                double_value_tile.innerHTML = collection_of_image[String(old_value * 2)]
                double_value_tile.dataset.value = String(old_value * 2)
-
                double_value_tile.classList.add("new_merging_tile")
                double_value_tile.addEventListener("animationend", () => {
                        tile_count--;
-                       console.log(tile_count)
                        if (tile_count === 0) {
                            isMoving = false
                        }
@@ -102,7 +99,6 @@ function moveMergingTile(merging_move) {
        }
    }
 }
-
 
 
 function appear_of_game_over_board (win_or_not){
