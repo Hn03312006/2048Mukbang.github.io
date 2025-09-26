@@ -13,7 +13,7 @@ for (let i = 0; i < 4; i++) {
 
 function game_over(board) {
     for (let row = 0; row < 4; row++) {
-        for (let col = 0; col <4; col++ ) {
+        for (let col = 0; col <4; col++) {
             if ((row !== 3) && (col !== 3)) {
                 if ((board[row][col][0] ===  board[row+1][col][0] ) || (board[row][col][0] === board[row][col+1][0])) {
                     return "continue"
@@ -22,7 +22,6 @@ function game_over(board) {
             else if (row === 3 && col !== 3) {
                 if ( board[row][col][0] === board[row][col+1][0]) {
                     return "continue"
-
                 }
             }
             else if (col=== 3 && row !== 3) {
@@ -43,10 +42,6 @@ function random24() {
 }
 
 
-
-
-
-
 function RandomTile(board) {
     if (win_or_not === "yes") {
         appear_of_game_over_board("win")
@@ -60,12 +55,11 @@ function RandomTile(board) {
             }
         }
     }
-    let randomNumber = Math.floor(Math.random() * (new_list.length ))
+    let randomNumber = Math.floor(Math.random() * (new_list.length))
     let random_tile = new_list[randomNumber]
     let random = random24()
     let id = id_use[id_use.length-1]
     board[random_tile[0]][random_tile[1]] = [random, id]
-
     RandomTileAnimation(random, random_tile, id)
     id_use.pop()
     if (new_list.length === 1) {
@@ -78,7 +72,6 @@ function RandomTile(board) {
 }
 
 
-
 function RemoveSpace(board, direction){
     let temporary_list = []
     let second_temp = []
@@ -86,7 +79,7 @@ function RemoveSpace(board, direction){
         for (let col = 0; col < 4; col++) {
             let tile = board[row][col][0]
             if (tile !== 0) {
-                temporary_list.push([tile,board[row][col][1] ])
+                temporary_list.push([tile,board[row][col][1]])
             }
         }
         if (direction === "left" || direction === "up") {
@@ -126,7 +119,6 @@ function merge(board, direction) {
                 merge_disappear.push(String(board[row][y][1]))
                 merging_to.push(board[row][x][1])
                 board[row][y][0] = 0
-
                 board[row][y][1] = ""
             }
             if (board[row][x][0] === 2048) {
@@ -135,7 +127,7 @@ function merge(board, direction) {
             if (board[row][x][0] > document.getElementById("value").innerHTML) {
                 document.getElementById("value").innerHTML = board[row][x][0]
             }
-            if( direction === "left" || direction === "up") {
+            if (direction === "left" || direction === "up") {
                 x ++
                 y++
             }
@@ -147,7 +139,6 @@ function merge(board, direction) {
     }
     return ([merge_disappear, merging_to])
 }
-
 
 
 function Translating_Distance_Cal(old_board, new_board, merging_disappear, merging_to) {
@@ -163,7 +154,8 @@ function Translating_Distance_Cal(old_board, new_board, merging_disappear, mergi
                 }
                 if (old_board[i][j][1] !== new_board[i][j][1]) {
                     list_of_id.push(new_board[i][j][1])
-                    new_position.push([i, j]) }
+                    new_position.push([i, j])
+                }
             }
         }
     }
@@ -189,6 +181,7 @@ function HorToVer(real_board) {
     return new_board
 }
 
+
 function main(board) {
     document.addEventListener('keyup', (event) => {
         if (event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp" || event.key === "ArrowRight") {
@@ -205,12 +198,15 @@ function main(board) {
             }
             if (event.key === 'ArrowLeft') {
                 direction = "left"
-            } else if (event.key === "ArrowRight") {
+            }
+            else if (event.key === "ArrowRight") {
                 direction = "right"
-            } else if (event.key === "ArrowUp") {
+            }
+            else if (event.key === "ArrowUp") {
                 direction = "up"
                 board = HorToVer(board)
-            } else if (event.key === "ArrowDown") {
+            }
+            else if (event.key === "ArrowDown") {
                 direction = "down"
                 board = HorToVer(board)
             }
@@ -225,7 +221,6 @@ function main(board) {
             let translate_obj = (Translating_Distance_Cal(old_board, board, merging_disappear, merging_to))
             moveNormalTile(translate_obj[0])
             moveMergingTile(translate_obj[1])
-
             let copy_to_compare1 = []
             for (let element of board) {
                 for (let item of element) {
@@ -240,10 +235,11 @@ function main(board) {
     });
 }
 
+
 function final_run(board) {
     document.getElementById("value").innerHTML = String(RandomTile(board));
-
     main(board);
 }
+
 
 final_run(board)
